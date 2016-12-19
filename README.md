@@ -1,7 +1,13 @@
-Routing On the Host (RoH) Demo
+Scale-out Load-Balancer Demo
 ===========================
 
-This demo shows a topology using 'Routing on the Host' to add host reachability directly into a BGP routed fabric. Switches are Cumulus Linux and servers running Ubuntu. This playbook configures a CLOS topology running BGP unnumbered in the fabric with numbered links towards the hosts, and installs a webserver on one of the hosts to serve as a Hello World example. The Ubunut server acts as the host to redistribute kernel routes as /32 host routes into the routing table when VMs or containers become available. When the demo runs successfully, any server on the network should be able to access the webserver via the BGP routes established over the fabric.
+This demo shows a topology using 'Routing on the Host' to add host reachability directly into a BGP routed fabric. Switches are Cumulus Linux and servers running Ubuntu. This playbook configures a CLOS topology running BGP unnumbered in the fabric with numbered links towards the hosts. 
+
+The Ubuntu server acts as the host to redistribute kernel routes as /32 host routes into the routing table when VMs or containers become available. When the demo runs successfully, any server on the network should be able to access the webserver via the BGP routes established over the fabric.
+
+NGINX is installed on server01-04. Server01 and Server03 are configured as a front end LB tier, Server02 and server04 are confifgured as standard webservers.
+
+The purpose of this demo is to experiment with session sharing between LBs and see the impact in an ECMP L3 fabric with anycast service IPs (aka V-IPs).
 
 This demo is written for the [cldemo-vagrant](https://github.com/cumulusnetworks/cldemo-vagrant) reference topology and applies the reference BGP unnumbered configuration from [cldemo-config-routing](https://github.com/cumulusnetworks/cldemo-config-routing).
 
@@ -24,11 +30,8 @@ Before running this demo, install [VirtualBox](https://www.virtualbox.org/wiki/D
     sudo apt-get install ansible -qy
 
     ### Run the ROH demo
-    git clone https://github.com/cumulusnetworks/cldemo-roh-ansible
-    cd cldemo-roh-ansible
+    git clone https://github.com/cnidus/cldemo-lb-ansible
+    cd cldemo-lb-ansible
     ansible-playbook run-demo.yml
 
-    ### check reachability of server02 from server01
-    ssh server01
-    wget 10.0.0.32
-    cat index.html
+    ### Something will go here eventually...
